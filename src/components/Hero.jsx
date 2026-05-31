@@ -3,6 +3,7 @@ import { Box, Typography, Button, Container, Grid, Stack, useTheme } from '@mui/
 import GetAppIcon from '@mui/icons-material/GetApp';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import modularKitchen from '../assets/modular_kitchen.png';
 
 export default function Hero() {
   const theme = useTheme();
@@ -146,7 +147,7 @@ export default function Hero() {
                   size="large"
                   startIcon={<GetAppIcon />}
                   component="a"
-                  href="/ModuFit_Modular_Installation_Brochure.pdf"
+                  href={`${import.meta.env.BASE_URL}ModuFit_Modular_Installation_Brochure.pdf`}
                   download="ModuFit_Modular_Installation_Brochure.pdf"
                   target="_blank"
                   sx={{ 
@@ -191,7 +192,7 @@ export default function Hero() {
             >
               <Box 
                 component="img"
-                src="/modular_kitchen.png"
+                src={modularKitchen}
                 alt="ModuFit Premium Kitchen Installation"
                 sx={{
                   width: '100%',

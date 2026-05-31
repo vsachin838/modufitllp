@@ -255,7 +255,7 @@ export default function ContactForm() {
                 color="primary"
                 startIcon={<GetAppIcon />}
                 component="a"
-                href="/ModuFit_Modular_Installation_Brochure.pdf"
+                href={`${import.meta.env.BASE_URL}ModuFit_Modular_Installation_Brochure.pdf`}
                 download="ModuFit_Modular_Installation_Brochure.pdf"
                 target="_blank"
                 sx={{ 
