@@ -77,7 +77,7 @@ export default function Clients() {
               key={idx}
               elevation={0}
               sx={{
-                width: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(33.33% - 24px)' },
+                width: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(50% - 16px)' },
                 p: { xs: 4, sm: 5 },
                 borderRadius: '20px',
                 backgroundColor: '#FFFFFF',
