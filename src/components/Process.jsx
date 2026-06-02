@@ -82,108 +82,117 @@ export default function Process() {
         </Box>
 
         {/* Steps Grid */}
-        <Grid container spacing={4} sx={{ position: 'relative' }}>
-          {/* Connector Line (Desktop only) */}
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, position: 'relative', width: '100%' }}>
+          {/* Connector Line (Vertical) */}
           <Box 
             sx={{ 
-              display: { xs: 'none', md: 'block' },
               position: 'absolute',
-              top: '110px',
-              left: '12.5%',
-              right: '12.5%',
-              height: '3px',
-              borderTop: '3px dashed rgba(194, 159, 93, 0.4)',
+              top: '40px',
+              bottom: '260px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '3px',
+              borderLeft: '3px dashed rgba(194, 159, 93, 0.4)',
               zIndex: 0,
             }}
           />
 
           {steps.map((step, idx) => (
-            <Grid item xs={12} md={3} key={idx} sx={{ position: 'relative', zIndex: 1 }}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                
-                {/* Step Circle */}
-                <Paper
-                  elevation={4}
-                  sx={{
-                    width: 80,
-                    height: 80,
+            <Box 
+              key={idx} 
+              sx={{ 
+                width: { xs: '100%', sm: '80%', md: '80%' },
+                position: 'relative', 
+                zIndex: 1,
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center', 
+                textAlign: 'center' 
+              }}
+            >
+              
+              {/* Step Circle */}
+              <Paper
+                elevation={4}
+                sx={{
+                  width: 80,
+                  height: 80,
+                  borderRadius: '50%',
+                  backgroundColor: 'primary.main',
+                  color: '#FFFFFF',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mb: 3,
+                  border: '4px solid #FFFFFF',
+                  position: 'relative',
+                  transition: 'all 0.3s ease-in-out',
+                  '&:hover': {
+                    backgroundColor: 'secondary.main',
+                    transform: 'scale(1.1)',
+                    boxShadow: '0 8px 24px rgba(194, 159, 93, 0.4)',
+                  }
+                }}
+              >
+                {step.icon}
+                {/* Step Number Badge */}
+                <Box 
+                  sx={{ 
+                    position: 'absolute',
+                    top: -10,
+                    right: -10,
+                    backgroundColor: 'secondary.main',
+                    color: 'primary.contrastText',
+                    width: 28,
+                    height: 28,
                     borderRadius: '50%',
-                    backgroundColor: 'primary.main',
-                    color: '#FFFFFF',
+                    fontSize: '0.8rem',
+                    fontWeight: 800,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    mb: 3,
-                    border: '4px solid #FFFFFF',
-                    position: 'relative',
-                    transition: 'all 0.3s ease-in-out',
-                    '&:hover': {
-                      backgroundColor: 'secondary.main',
-                      transform: 'scale(1.1)',
-                      boxShadow: '0 8px 24px rgba(194, 159, 93, 0.4)',
-                    }
+                    border: '2px solid #FFFFFF',
+                    fontFamily: 'Outfit',
                   }}
                 >
-                  {step.icon}
-                  {/* Step Number Badge */}
-                  <Box 
-                    sx={{ 
-                      position: 'absolute',
-                      top: -10,
-                      right: -10,
-                      backgroundColor: 'secondary.main',
-                      color: 'primary.contrastText',
-                      width: 28,
-                      height: 28,
-                      borderRadius: '50%',
-                      fontSize: '0.8rem',
-                      fontWeight: 800,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      border: '2px solid #FFFFFF',
-                      fontFamily: 'Outfit',
-                    }}
-                  >
-                    {step.step}
-                  </Box>
-                </Paper>
+                  {step.step}
+                </Box>
+              </Paper>
 
-                {/* Content Card */}
-                <Paper
-                  elevation={0}
-                  sx={{
-                    p: 4,
-                    borderRadius: '16px',
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid rgba(0, 0, 0, 0.04)',
-                    width: '100%',
-                    minHeight: '240px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    transition: 'all 0.3s ease-in-out',
-                    '&:hover': {
-                      transform: 'translateY(-5px)',
-                      boxShadow: '0 10px 25px rgba(0,0,0,0.06)',
-                      borderColor: 'rgba(194, 159, 93, 0.3)',
-                    }
-                  }}
-                >
-                  <Typography variant="h5" sx={{ mb: 0.5, fontWeight: 700, color: 'primary.main' }}>
-                    {step.title}
-                  </Typography>
-                  <Typography variant="subtitle2" sx={{ mb: 2, color: 'secondary.main', fontWeight: 600 }}>
-                    {step.subtitle}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.92rem' }}>
-                    {step.description}
-                  </Typography>
-                </Paper>
+              {/* Content Card */}
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 4,
+                  borderRadius: '16px',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid rgba(0, 0, 0, 0.04)',
+                  width: '100%',
+                  minHeight: '240px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  transition: 'all 0.3s ease-in-out',
+                  '&:hover': {
+                    transform: 'translateY(-5px)',
+                    boxShadow: '0 10px 25px rgba(0,0,0,0.06)',
+                    borderColor: 'rgba(194, 159, 93, 0.3)',
+                  }
+                }}
+              >
+                <Typography variant="h5" sx={{ mb: 0.5, fontWeight: 700, color: 'primary.main' }}>
+                  {step.title}
+                </Typography>
+                <Typography variant="subtitle2" sx={{ mb: 2, color: 'secondary.main', fontWeight: 600 }}>
+                  {step.subtitle}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.92rem' }}>
+                  {step.description}
+                </Typography>
+              </Paper>
 
-              </Box>
-            </Grid>
+            </Box>
           ))}
-        </Grid>
+        </Box>
       </Container>
     </Box>
   );

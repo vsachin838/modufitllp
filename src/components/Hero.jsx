@@ -102,7 +102,7 @@ export default function Hero() {
                   maxWidth: '540px'
                 }}
               >
-                Bringing structure, professionalism, and transparency to modular installation services across India.
+                Bringing structure, professionalism and transparency to modular installation services across India.
               </Typography>
 
               {/* Bullet Points */}

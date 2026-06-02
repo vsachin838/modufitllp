@@ -72,8 +72,8 @@ function App() {
         {/* Partners/Clients Section */}
         <Clients />
 
-        {/* Contact Us Section */}
-        <ContactForm />
+        {/* Contact Us Section
+        <ContactForm /> */}
       </Box>
 
       {/* Footer */}

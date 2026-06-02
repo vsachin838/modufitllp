@@ -71,98 +71,97 @@ export default function Clients() {
         </Box>
 
         {/* Clients Grid */}
-        <Grid container spacing={4} justifyContent="center">
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center', width: '100%' }}>
           {clients.map((client, idx) => (
-            <Grid item xs={12} sm={6} md={3} key={idx}>
-              <Paper
-                elevation={0}
-                sx={{
-                  p: { xs: 4, sm: 5 },
-                  height: '100%',
-                  borderRadius: '20px',
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid rgba(0, 0, 0, 0.04)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  transition: 'all 0.3s ease-in-out',
-                  '&:hover': {
-                    transform: 'translateY(-6px)',
-                    boxShadow: '0 12px 30px rgba(0,0,0,0.07)',
-                    borderColor: 'primary.light',
-                    '& .partner-logo': {
-                      backgroundColor: 'primary.main',
-                      color: '#FFFFFF',
-                    }
+            <Paper
+              key={idx}
+              elevation={0}
+              sx={{
+                width: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(33.33% - 24px)' },
+                p: { xs: 4, sm: 5 },
+                borderRadius: '20px',
+                backgroundColor: '#FFFFFF',
+                border: '1px solid rgba(0, 0, 0, 0.04)',
+                display: 'flex',
+                flexDirection: 'column',
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'all 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-6px)',
+                  boxShadow: '0 12px 30px rgba(0,0,0,0.07)',
+                  borderColor: 'primary.light',
+                  '& .partner-logo': {
+                    backgroundColor: 'primary.main',
+                    color: '#FFFFFF',
                   }
+                }
+              }}
+            >
+              {/* Badge */}
+              <Box 
+                sx={{ 
+                  alignSelf: 'flex-start',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 0.5,
+                  px: 1.8,
+                  py: 0.6,
+                  borderRadius: '30px',
+                  backgroundColor: 'rgba(35, 51, 109, 0.05)',
+                  color: 'primary.main',
+                  mb: 3.5,
                 }}
               >
-                {/* Badge */}
-                <Box 
-                  sx={{ 
-                    alignSelf: 'flex-start',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 0.5,
-                    px: 1.8,
-                    py: 0.6,
-                    borderRadius: '30px',
-                    backgroundColor: 'rgba(35, 51, 109, 0.05)',
-                    color: 'primary.main',
-                    mb: 3.5,
-                  }}
-                >
-                  <StarIcon sx={{ fontSize: 14, color: 'secondary.main' }} />
-                  <Typography variant="caption" sx={{ fontWeight: 700, textTransform: 'uppercase', fontSize: '0.72rem', letterSpacing: 0.5 }}>
-                    {client.badge}
-                  </Typography>
-                </Box>
-
-                {/* Title */}
-                <Typography 
-                  variant="h4" 
-                  sx={{ 
-                    fontFamily: 'Outfit', 
-                    fontWeight: 800, 
-                    color: 'primary.main', 
-                    mb: 2,
-                    fontSize: '1.75rem'
-                  }}
-                >
-                  {client.name}
+                <StarIcon sx={{ fontSize: 14, color: 'secondary.main' }} />
+                <Typography variant="caption" sx={{ fontWeight: 700, textTransform: 'uppercase', fontSize: '0.72rem', letterSpacing: 0.5 }}>
+                  {client.badge}
                 </Typography>
+              </Box>
 
-                <Divider sx={{ mb: 3, width: '40px', borderWidth: '1.5px', borderColor: 'secondary.main', borderRadius: '2px' }} />
+              {/* Title */}
+              <Typography 
+                variant="h4" 
+                sx={{ 
+                  fontFamily: 'Outfit', 
+                  fontWeight: 800, 
+                  color: 'primary.main', 
+                  mb: 2,
+                  fontSize: '1.75rem'
+                }}
+              >
+                {client.name}
+              </Typography>
 
-                {/* Description */}
-                <Typography variant="body1" color="text.secondary" sx={{ fontSize: '0.98rem', lineHeight: 1.65, mb: 'auto' }}>
-                  {client.description}
-                </Typography>
+              <Divider sx={{ mb: 3, width: '40px', borderWidth: '1.5px', borderColor: 'secondary.main', borderRadius: '2px' }} />
 
-                {/* Icon Decorator */}
-                <Box 
-                  className="partner-logo"
-                  sx={{ 
-                    mt: 4,
-                    alignSelf: 'flex-end',
-                    width: 48,
-                    height: 48,
-                    borderRadius: '50%',
-                    backgroundColor: 'background.alternative',
-                    color: 'primary.main',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    transition: 'all 0.3s ease-in-out',
-                  }}
-                >
-                  <HandshakeIcon sx={{ fontSize: 24 }} />
-                </Box>
-              </Paper>
-            </Grid>
+              {/* Description */}
+              <Typography variant="body1" color="text.secondary" sx={{ fontSize: '0.98rem', lineHeight: 1.65, mb: 'auto' }}>
+                {client.description}
+              </Typography>
+
+              {/* Icon Decorator */}
+              <Box 
+                className="partner-logo"
+                sx={{ 
+                  mt: 4,
+                  alignSelf: 'flex-end',
+                  width: 48,
+                  height: 48,
+                  borderRadius: '50%',
+                  backgroundColor: 'background.alternative',
+                  color: 'primary.main',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.3s ease-in-out',
+                }}
+              >
+                <HandshakeIcon sx={{ fontSize: 24 }} />
+              </Box>
+            </Paper>
           ))}
-        </Grid>
+        </Box>
       </Container>
     </Box>
   );

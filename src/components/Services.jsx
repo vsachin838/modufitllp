@@ -105,98 +105,97 @@ export default function Services() {
         </Box>
 
         {/* Services Grid */}
-        <Grid container spacing={4}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
           {services.map((service, idx) => (
-            <Grid item xs={12} sm={6} md={4} key={idx}>
-              <Card 
-                sx={{ 
-                  height: '100%', 
-                  display: 'flex', 
-                  flexDirection: 'column',
-                  position: 'relative',
-                  border: '1px solid rgba(0, 0, 0, 0.04)',
-                  '&:hover': {
-                    '& .icon-box': {
-                      backgroundColor: 'primary.main',
-                      color: '#FFFFFF',
-                      transform: 'rotateY(360deg)',
-                    },
-                    '& .icon-svg': {
-                      color: '#FFFFFF',
-                    }
+            <Card 
+              key={idx}
+              sx={{ 
+                width: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(33.33% - 24px)' },
+                display: 'flex', 
+                flexDirection: 'column',
+                position: 'relative',
+                border: '1px solid rgba(0, 0, 0, 0.04)',
+                '&:hover': {
+                  '& .icon-box': {
+                    backgroundColor: 'primary.main',
+                    color: '#FFFFFF',
+                    transform: 'rotateY(360deg)',
+                  },
+                  '& .icon-svg': {
+                    color: '#FFFFFF',
                   }
-                }}
-              >
-                <CardContent sx={{ p: 4, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                  {/* Icon Container */}
-                  <Box 
-                    className="icon-box"
+                }
+              }}
+            >
+              <CardContent sx={{ p: 4, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+                {/* Icon Container */}
+                <Box 
+                  className="icon-box"
+                  sx={{ 
+                    width: 70, 
+                    height: 70, 
+                    borderRadius: '16px', 
+                    backgroundColor: service.color, 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    mb: 3.5,
+                    transition: 'all 0.6s ease-in-out',
+                  }}
+                >
+                  {React.cloneElement(service.icon, { className: 'icon-svg' })}
+                </Box>
+
+                {/* Title */}
+                <Typography variant="h5" sx={{ mb: 1, fontWeight: 700, color: 'primary.main' }}>
+                  {service.title}
+                </Typography>
+
+                {/* Quote */}
+                <Typography 
+                  variant="subtitle2" 
+                  sx={{ 
+                    mb: 2, 
+                    color: 'secondary.main', 
+                    fontStyle: 'italic',
+                    fontWeight: 600,
+                  }}
+                >
+                  "{service.quote}"
+                </Typography>
+
+                {/* Description */}
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 4, flexGrow: 1 }}>
+                  {service.description}
+                </Typography>
+
+                {/* Action Link */}
+                <Box sx={{ mt: 'auto' }}>
+                  <Button 
+                    variant="text" 
+                    color="primary"
+                    onClick={handleScrollToContact}
+                    endIcon={<ArrowForwardIcon className="arrow" sx={{ fontSize: 16, transition: 'transform 0.2s' }} />}
                     sx={{ 
-                      width: 70, 
-                      height: 70, 
-                      borderRadius: '16px', 
-                      backgroundColor: service.color, 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center',
-                      mb: 3.5,
-                      transition: 'all 0.6s ease-in-out',
-                    }}
-                  >
-                    {React.cloneElement(service.icon, { className: 'icon-svg' })}
-                  </Box>
-
-                  {/* Title */}
-                  <Typography variant="h5" sx={{ mb: 1, fontWeight: 700, color: 'primary.main' }}>
-                    {service.title}
-                  </Typography>
-
-                  {/* Quote */}
-                  <Typography 
-                    variant="subtitle2" 
-                    sx={{ 
-                      mb: 2, 
-                      color: 'secondary.main', 
-                      fontStyle: 'italic',
-                      fontWeight: 600,
-                    }}
-                  >
-                    "{service.quote}"
-                  </Typography>
-
-                  {/* Description */}
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 4, flexGrow: 1 }}>
-                    {service.description}
-                  </Typography>
-
-                  {/* Action Link */}
-                  <Box sx={{ mt: 'auto' }}>
-                    <Button 
-                      variant="text" 
-                      color="primary"
-                      onClick={handleScrollToContact}
-                      endIcon={<ArrowForwardIcon className="arrow" sx={{ fontSize: 16, transition: 'transform 0.2s' }} />}
-                      sx={{ 
-                        p: 0, 
-                        fontWeight: 700,
-                        fontSize: '0.95rem',
-                        '&:hover': {
-                          backgroundColor: 'transparent',
-                          color: 'secondary.main',
-                          '& .arrow': {
-                            transform: 'translateX(5px)',
-                          }
+                      p: 0, 
+                      fontWeight: 700,
+                      fontSize: '0.95rem',
+                      '&:hover': {
+                        backgroundColor: 'transparent',
+                        color: 'secondary.main',
+                        '& .arrow': {
+                          transform: 'translateX(5px)',
                         }
-                      }}
-                    >
-                      Enquire Now
-                    </Button>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
+                      }
+                    }}
+                  >
+                    Enquire Now
+                  </Button>
+                </Box>
+              </CardContent>
+            </Card>
           ))}
-        </Grid>
+        </Box>
       </Container>
     </Box>
   );
