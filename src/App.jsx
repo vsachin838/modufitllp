@@ -116,7 +116,7 @@ function App() {
                 </Typography>
               </Box>
               <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)', mb: 3, maxWidth: '400px', lineHeight: 1.65 }}>
-                India's first organized modular installation service. We bring structure, professionalism, and transparency to modular kitchens, wardrobes, and furniture installations across the nation.
+                India's first organized modular installation services. We bring structure, professionalism and transparency to modular kitchens, wardrobes, and furniture installations across the nation.
               </Typography>
             </Grid>
 
@@ -127,7 +127,7 @@ function App() {
               </Typography>
               <Stack spacing={1.5}>
                 {[
-                  { label: 'Home / Hero', href: '#home' },
+                  { label: 'Home', href: '#home' },
                   { label: 'Services We Provide', href: '#services' },
                   { label: 'Our Process Steps', href: '#process' },
                   { label: 'Why Partner With Us', href: '#why-choose-us' },

@@ -19,6 +19,11 @@ const clients = [
     description: 'Deogracia partners with us for their premium modular kitchen installations, ensuring their customers receive flawless execution and timely project completion.',
     badge: 'Premium Kitchen Partner',
   },
+  {
+    name: 'Sleek Kitchens by Asian Paints',
+    description: 'We collaborate with Sleek Kitchens by Asian Paints for the installation of modular kitchens and wardrobes, delivering exceptional workmanship, flawless execution, and on-time completion. Our expertise ensures that every project reflects the quality, functionality, and design excellence that Sleek customers expect.',
+    badge: 'Premium Installation Partner',
+  },
 ];
 
 export default function Clients() {
@@ -68,7 +73,7 @@ export default function Clients() {
         {/* Clients Grid */}
         <Grid container spacing={4} justifyContent="center">
           {clients.map((client, idx) => (
-            <Grid item xs={12} md={4} key={idx}>
+            <Grid item xs={12} sm={6} md={3} key={idx}>
               <Paper
                 elevation={0}
                 sx={{

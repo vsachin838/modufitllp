@@ -5,6 +5,8 @@ import TvIcon from '@mui/icons-material/Tv';
 import ChairIcon from '@mui/icons-material/Chair';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import DesignServicesIcon from '@mui/icons-material/DesignServices';
+import EngineeringIcon from '@mui/icons-material/Engineering';
 
 const services = [
   {
@@ -34,6 +36,20 @@ const services = [
     description: 'Versatile modular furniture solutions designed to adapt perfectly to your changing needs and modern lifestyle spaces.',
     icon: <ChairIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
     color: '#F9F1EB',
+  },
+  {
+    title: 'Architecture Consultancy',
+    quote: 'Designing spaces that inspire life.',
+    description: 'Innovative architectural consultancy services focused on creating functional, aesthetic, and sustainable spaces tailored to your vision and lifestyle.',
+    icon: <DesignServicesIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
+    color: '#EAF6F0',
+  },
+  {
+    title: 'Structural Consultancy',
+    quote: 'Strength engineered with precision.',
+    description: 'Reliable structural consultancy solutions ensuring safe, durable, and efficient designs for residential, commercial, and industrial projects.',
+    icon: <EngineeringIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
+    color: '#EDF1F8',
   },
 ];
 
@@ -91,7 +107,7 @@ export default function Services() {
         {/* Services Grid */}
         <Grid container spacing={4}>
           {services.map((service, idx) => (
-            <Grid item xs={12} sm={6} md={3} key={idx}>
+            <Grid item xs={12} sm={6} md={4} key={idx}>
               <Card 
                 sx={{ 
                   height: '100%', 
