@@ -8,7 +8,6 @@ import {
   MenuItem, 
   Button, 
   Paper, 
-  Stack, 
   Snackbar, 
   Alert,
   useTheme 
@@ -19,6 +18,7 @@ import LanguageIcon from '@mui/icons-material/Language';
 import MapIcon from '@mui/icons-material/Map';
 import SendIcon from '@mui/icons-material/Send';
 import GetAppIcon from '@mui/icons-material/GetApp';
+import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
 
 const services = [
   'Modular Kitchen',
@@ -43,6 +43,61 @@ export default function ContactForm() {
 
   const [errors, setErrors] = useState({});
   const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const webAppUrl = 'https://script.google.com/macros/s/AKfycbwndNIdMOtLe4teUgMO2hXT-Yp6IxuFgtThOYkLbInZjUjfDZ7iEDFPqnvk7k89Jqs/exec'
+  // Replace this temporary URL with the final complaint Google Form link.
+  const complaintFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSe3ONnvScT3YeKhTSwAp015T0JnmMkRMIkBvWkOHNg3BVgGyg/viewform?usp=publish-editor';
+
+async function sendDataToSheets () {
+  try {
+    const response = await fetch(webAppUrl, {
+      method: 'POST',
+      mode: 'cors', // Ensures cross-origin requests work in the browser
+      headers: {
+        'Content-Type': 'text/plain', // Note: Apps Script sometimes prefers text/plain to avoid CORS preflight issues
+      },
+      body: JSON.stringify({ ...formData })
+    });
+
+    if(!response.ok){
+       alert('Error Submitting the form.');
+    }
+    const result = await response.json();
+    console.log('Success:', result);
+  } catch (error) {
+    console.error('Error updating sheet:', error);
+  }
+}
+
+
+
+  // const sendDataToSheets = async () => {
+
+  //   const response = await fetch(
+  //     'https://script.google.com/macros/s/AKfycbzH7DcYH8wgDRfkLY7--IiPcMTNmjul0z1lbfOa_0udNok2wfZBHzIg3qC84x2b1Ozq/exec',
+  //     {
+  //       method: 'POST',
+  //       headers: {
+  //        // 'Content-Type': 'text/plain;charset=utf-8',
+
+
+  //       },
+  //       body: JSON.stringify({ ...formData }),
+  //       redirect: 'follow',
+  //     }
+  //   );
+
+  //   //if (response.ok) {
+  //   //  alert(
+  //   //    "Your trip with Ayodhya Darshanam is booked successfully! We'll call you shortly..."
+  //   //  );
+  //  // } else {
+  //  //   alert('Failed to book the trip.');
+  //  // }
+
+  //    alert('Form clicked');
+  //    console.log('Form Submitted successfully from api function:', formData);
+  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -82,6 +137,7 @@ export default function ContactForm() {
     if (validate()) {
       // Simulate API submit
       console.log('Form Submitted successfully:', formData);
+      sendDataToSheets();
       setOpenSnackbar(true);
       // Reset Form
       setFormData({
@@ -154,24 +210,41 @@ export default function ContactForm() {
               </Typography>
 
               {/* Info Stack */}
-              <Stack spacing={4} sx={{ mb: 6 }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 3,
+                  mb: 6,
+                  '& > div': {
+                    flex: {
+                      xs: '0 0 100%',
+                      md: '0 0 calc(50% - 12px)',
+                    },
+                    minWidth: 0,
+                  },
+                }}
+              >
                 
                 {/* Phone */}
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2.5 }}>
-                  <Box sx={{ width: 52, height: 52, borderRadius: '50%', backgroundColor: 'rgba(35, 51, 109, 0.06)', display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center', color: 'primary.main' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <Box sx={{ width: 46, height: 46, flexShrink: 0, borderRadius: '50%', backgroundColor: 'rgba(35, 51, 109, 0.06)', display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center', color: 'primary.main' }}>
                     <PhoneIcon />
                   </Box>
-                  <Box>
-                    <Typography variant="caption" color="text.light" sx={{ fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                  <Box sx={{ minWidth: 0 }}>
+                    <Typography variant="caption" color="text.light" sx={{ display: 'block', mb: 0.35, fontSize: '0.7rem', lineHeight: 1.2, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
                       Call or WhatsApp
                     </Typography>
-                    <Typography 
-                      variant="h6" 
-                      component="a" 
+                    <Typography
+                      variant="h6"
+                      component="a"
                       href="tel:+917827658674"
-                      sx={{ 
-                        color: 'primary.main', 
-                        fontWeight: 700, 
+                      sx={{
+                        color: 'primary.main',
+                        fontWeight: 700,
+                        display: 'block',
+                        fontSize: { xs: '0.95rem', sm: '1rem' },
+                        lineHeight: 1.35,
                         textDecoration: 'none',
                         '&:hover': { color: 'secondary.main' }
                       }}
@@ -182,12 +255,12 @@ export default function ContactForm() {
                 </Box>
 
                 {/* Email */}
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2.5 }}>
-                  <Box sx={{ width: 52, height: 52, borderRadius: '50%', backgroundColor: 'rgba(35, 51, 109, 0.06)', display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center', color: 'primary.main' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <Box sx={{ width: 46, height: 46, flexShrink: 0, borderRadius: '50%', backgroundColor: 'rgba(35, 51, 109, 0.06)', display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center', color: 'primary.main' }}>
                     <EmailIcon />
                   </Box>
-                  <Box>
-                    <Typography variant="caption" color="text.light" sx={{ fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                  <Box sx={{ minWidth: 0 }}>
+                    <Typography variant="caption" color="text.light" sx={{ display: 'block', mb: 0.35, fontSize: '0.7rem', lineHeight: 1.2, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
                       Email Support
                     </Typography>
                     <Typography 
@@ -197,6 +270,10 @@ export default function ContactForm() {
                       sx={{ 
                         color: 'primary.main', 
                         fontWeight: 700, 
+                        display: 'block',
+                        fontSize: { xs: '0.95rem', sm: '1rem' },
+                        lineHeight: 1.35,
+                        overflowWrap: 'anywhere',
                         textDecoration: 'none',
                         '&:hover': { color: 'secondary.main' }
                       }}
@@ -207,12 +284,12 @@ export default function ContactForm() {
                 </Box>
 
                 {/* Website */}
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2.5 }}>
-                  <Box sx={{ width: 52, height: 52, borderRadius: '50%', backgroundColor: 'rgba(35, 51, 109, 0.06)', display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center', color: 'primary.main' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <Box sx={{ width: 46, height: 46, flexShrink: 0, borderRadius: '50%', backgroundColor: 'rgba(35, 51, 109, 0.06)', display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center', color: 'primary.main' }}>
                     <LanguageIcon />
                   </Box>
-                  <Box>
-                    <Typography variant="caption" color="text.light" sx={{ fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                  <Box sx={{ minWidth: 0 }}>
+                    <Typography variant="caption" color="text.light" sx={{ display: 'block', mb: 0.35, fontSize: '0.7rem', lineHeight: 1.2, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
                       Official Website
                     </Typography>
                     <Typography 
@@ -224,6 +301,9 @@ export default function ContactForm() {
                       sx={{ 
                         color: 'primary.main', 
                         fontWeight: 700, 
+                        display: 'block',
+                        fontSize: { xs: '0.95rem', sm: '1rem' },
+                        lineHeight: 1.35,
                         textDecoration: 'none',
                         '&:hover': { color: 'secondary.main' }
                       }}
@@ -233,8 +313,38 @@ export default function ContactForm() {
                   </Box>
                 </Box>
 
+
+ {/* Coverage */}
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <Box sx={{ width: 46, height: 46, flexShrink: 0, borderRadius: '50%', backgroundColor: 'rgba(35, 51, 109, 0.06)', display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center', color: 'primary.main' }}>
+                    <MapIcon />
+                  </Box>
+                  <Box sx={{ minWidth: 0 }}>
+                    <Typography variant="caption" color="text.light" sx={{ display: 'block', mb: 0.35, fontSize: '0.7rem', lineHeight: 1.2, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                      Service Coverage
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      component="a"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        color: 'primary.main',
+                        fontWeight: 700,
+                        display: 'block',
+                        fontSize: { xs: '0.95rem', sm: '1rem' },
+                        lineHeight: 1.35,
+                        textDecoration: 'none',
+                        '&:hover': { color: 'secondary.main' }
+                      }}
+                    >
+                      PAN-INDIA SERVICE
+                    </Typography>
+                  </Box>
+                </Box>
+
                 {/* Coverage */}
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2.5 }}>
+                {/* <Box sx={{ display: 'flex', alignItems: 'center', gap: 2.5 }}>
                   <Box sx={{ width: 52, height: 52, borderRadius: '50%', backgroundColor: 'rgba(35, 51, 109, 0.06)', display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center', color: 'primary.main' }}>
                     <MapIcon />
                   </Box>
@@ -246,9 +356,48 @@ export default function ContactForm() {
                       PAN-INDIA SERVICE
                     </Typography>
                   </Box>
-                </Box>
+                </Box> */}
 
-              </Stack>
+              </Box>
+
+              {/* Complaint Section */}
+              <Paper
+                variant="outlined"
+                sx={{
+                  display: 'flex',
+                  alignItems: { xs: 'flex-start', sm: 'center' },
+                  flexDirection: { xs: 'column', sm: 'row' },
+                  gap: 2,
+                  p: 2.5,
+                  mb: 3,
+                  borderRadius: '16px',
+                  borderColor: 'rgba(35, 51, 109, 0.16)',
+                  boxShadow: 'none',
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flex: 1 }}>
+                  <ReportProblemOutlinedIcon color="secondary" />
+                  <Box>
+                    <Typography sx={{ color: 'primary.main', fontWeight: 700, lineHeight: 1.3 }}>
+                      Have a Complaint?
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Share your concern through our complaint form.
+                    </Typography>
+                  </Box>
+                </Box>
+                <Button
+                  component="a"
+                  href={complaintFormUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="contained"
+                  color="secondary"
+                  sx={{ flexShrink: 0, fontWeight: 700 }}
+                >
+                  Submit Complaint
+                </Button>
+              </Paper>
 
               <Button
                 variant="outlined"
@@ -289,27 +438,43 @@ export default function ContactForm() {
                 Fill out the form below and our project coordination manager will call you within 24 hours.
               </Typography>
 
-              <Box component="form" onSubmit={handleSubmit} noValidate>
-                <Grid container spacing={3}>
-                  
+              <Box
+                component="form"
+                onSubmit={handleSubmit}
+                noValidate
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  gap: 3,
+                  width: '100%',
+                  '& .MuiInputBase-root:not(.MuiInputBase-multiline)': {
+                    height: 56,
+                  },
+                  '& .MuiFormHelperText-root': {
+                    minHeight: 20,
+                    mt: 0.5,
+                  },
+                }}
+              >
                   {/* Name */}
-                  <Grid item xs={12} sm={6}>
+                  <Box sx={{ flex: { xs: '0 0 100%', sm: '0 0 calc((100% - 48px) / 3)' }, minWidth: 0 }}>
                     <TextField
                       required
                       fullWidth
                       name="name"
-                      label="Your Name"
+                      label="Name"
                       value={formData.name}
                       onChange={handleChange}
                       error={!!errors.name}
-                      helperText={errors.name}
+                      helperText={errors.name || ' '}
                       variant="outlined"
                       InputProps={{ sx: { borderRadius: '12px' } }}
                     />
-                  </Grid>
+                  </Box>
 
                   {/* Phone */}
-                  <Grid item xs={12} sm={6}>
+                  <Box sx={{ flex: { xs: '0 0 100%', sm: '0 0 calc((100% - 48px) / 3)' }, minWidth: 0 }}>
                     <TextField
                       required
                       fullWidth
@@ -318,14 +483,14 @@ export default function ContactForm() {
                       value={formData.phone}
                       onChange={handleChange}
                       error={!!errors.phone}
-                      helperText={errors.phone}
+                      helperText={errors.phone || ' '}
                       variant="outlined"
                       InputProps={{ sx: { borderRadius: '12px' } }}
                     />
-                  </Grid>
+                  </Box>
 
                   {/* Email */}
-                  <Grid item xs={12} sm={6}>
+                  <Box sx={{ flex: { xs: '0 0 100%', sm: '0 0 calc((100% - 48px) / 3)' }, minWidth: 0 }}>
                     <TextField
                       fullWidth
                       name="email"
@@ -333,30 +498,30 @@ export default function ContactForm() {
                       value={formData.email}
                       onChange={handleChange}
                       error={!!errors.email}
-                      helperText={errors.email}
+                      helperText={errors.email || ' '}
                       variant="outlined"
                       InputProps={{ sx: { borderRadius: '12px' } }}
                     />
-                  </Grid>
+                  </Box>
 
                   {/* City */}
-                  <Grid item xs={12} sm={6}>
+                  <Box sx={{ flex: { xs: '0 0 100%', sm: '0 0 calc((100% - 48px) / 3)' }, minWidth: 0 }}>
                     <TextField
                       required
                       fullWidth
                       name="city"
-                      label="City / Location"
+                      label="City"
                       value={formData.city}
                       onChange={handleChange}
                       error={!!errors.city}
-                      helperText={errors.city}
+                      helperText={errors.city || ' '}
                       variant="outlined"
                       InputProps={{ sx: { borderRadius: '12px' } }}
                     />
-                  </Grid>
+                  </Box>
 
                   {/* Service Dropdown */}
-                  <Grid item xs={12}>
+                  <Box sx={{ flex: { xs: '0 0 100%', sm: '0 0 calc((100% - 48px) / 3)' }, minWidth: 0 }}>
                     <TextField
                       select
                       required
@@ -366,7 +531,7 @@ export default function ContactForm() {
                       value={formData.service}
                       onChange={handleChange}
                       error={!!errors.service}
-                      helperText={errors.service}
+                      helperText={errors.service || ' '}
                       variant="outlined"
                       InputProps={{ sx: { borderRadius: '12px' } }}
                     >
@@ -376,10 +541,10 @@ export default function ContactForm() {
                         </MenuItem>
                       ))}
                     </TextField>
-                  </Grid>
+                  </Box>
 
                   {/* Message */}
-                  <Grid item xs={12}>
+                  <Box sx={{ width: '100%' }}>
                     <TextField
                       fullWidth
                       name="message"
@@ -391,10 +556,10 @@ export default function ContactForm() {
                       variant="outlined"
                       InputProps={{ sx: { borderRadius: '12px' } }}
                     />
-                  </Grid>
+                  </Box>
 
                   {/* Submit Button */}
-                  <Grid item xs={12}>
+                  <Box sx={{ flex: { xs: '0 0 100%', sm: '0 0 calc((100% - 48px) / 3)' }, minWidth: 0 }}>
                     <Button
                       type="submit"
                       variant="contained"
@@ -415,9 +580,7 @@ export default function ContactForm() {
                     >
                       Send Message
                     </Button>
-                  </Grid>
-
-                </Grid>
+                  </Box>
               </Box>
             </Paper>
           </Grid>

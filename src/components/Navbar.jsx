@@ -65,9 +65,14 @@ export default function Navbar() {
             <ListItemButton 
               onClick={() => handleScroll(item.href)}
               sx={{ 
-                borderRadius: '8px',
+                borderRadius: '10px',
+                backgroundColor: '#F1F3F8',
+                border: '2px solid rgba(35, 51, 109, 0.28)',
+                px: 2,
+                py: 1,
                 '&:hover': {
-                  backgroundColor: 'rgba(35, 51, 109, 0.08)',
+                  backgroundColor: '#FAF7F0',
+                  borderColor: 'secondary.main',
                 }
               }}
             >
@@ -255,7 +260,14 @@ export default function Navbar() {
           keepMounted: true, // Better mobile performance
         }}
         PaperProps={{
-          sx: { width: '80%', maxWidth: 360, borderTopLeftRadius: '24px', borderBottomLeftRadius: '24px' }
+          sx: {
+            width: '80%',
+            maxWidth: 360,
+            backgroundColor: '#FFFFFF',
+            borderLeft: '2px solid #23336D',
+            borderTopLeftRadius: '24px',
+            borderBottomLeftRadius: '24px',
+          }
         }}
       >
         {drawer}
